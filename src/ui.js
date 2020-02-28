@@ -7,15 +7,47 @@ let ui = {
         val: 0,
         offset: 0,
         visualVal: 0,
-        arm: document.getElementById('gyro-arm'),
-        number: document.getElementById('gyro-number')
+        arm: document.getElementById('gyro').firstChild,
+        number: document.getElementById('gyro').lastChild
+    },
+    module1 :{
+        container: document.getElementById('module1'),
+        val: 0,
+        offset: 0,
+        visualVal: 0,
+        arm: document.getElementById('module1').firstChild,
+        number: document.getElementById('module1').lastChild
+    },
+    module2 :{
+        container: document.getElementById('module2'),
+        val: 0,
+        offset: 0,
+        visualVal: 0,
+        arm: document.getElementById('module2').firstChild,
+        number: document.getElementById('module2').lastChild
+    },
+    module3 :{
+        container: document.getElementById('module3'),
+        val: 0,
+        offset: 0,
+        visualVal: 0,
+        arm: document.getElementById('module3').firstChild,
+        number: document.getElementById('module3').lastChild
+    },
+    module4 :{
+        container: document.getElementById('module4'),
+        val: 0,
+        offset: 0,
+        visualVal: 0,
+        arm: document.getElementById('module4').firstChild,
+        number: document.getElementById('module4').lastChild
     },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
-    example: {
-        button: document.getElementById('example-button'),
-        readout: document.getElementById('example-readout').firstChild
+    driveMode: {
+        button: document.getElementById('driveMode-button'),
+        readout: document.getElementById('driveMode-readout').firstChild
     },
     autoSelect: document.getElementById('auto-select'),
     armPosition: document.getElementById('arm-position')
@@ -24,17 +56,33 @@ let ui = {
 // Key Listeners
 
 // Gyro rotation
-let updateGyro = (key, value) => {
-    ui.gyro.val = value;
-    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-    ui.gyro.visualVal %= 360;
-    if (ui.gyro.visualVal < 0) {
-        ui.gyro.visualVal += 360;
+let updateGyroDisplay = function(value, displayItem) {
+
+    ui[displayItem].val = value;
+    ui[displayItem].visualVal = Math.floor(ui[displayItem].val - ui[displayItem].offset);
+    ui[displayItem].visualVal %= 360;
+    if (ui[displayItem].visualVal < 0) {
+        ui[displayItem].visualVal += 360;
     }
-    ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
-    ui.gyro.number.textContent = ui.gyro.visualVal + 'º';
+    ui[displayItem].arm.style.transform = `rotate(${ui[displayItem].visualVal}deg)`;
+    ui[displayItem].number.textContent = ui[displayItem].visualVal + '°';
 };
-NetworkTables.addKeyListener('/SmartDashboard/Gyro', updateGyro);
+
+NetworkTables.addKeyListener('/SmartDashboard/Gyro', (key, value) => {
+    updateGyroDisplay(value, "gyro");
+});
+NetworkTables.addKeyListener('/SmartDashboard/azimuth1', (key, value) => {
+    updateGyroDisplay(value, "module1");
+});
+NetworkTables.addKeyListener('/SmartDashboard/azimuth2', (key, value) => {
+    updateGyroDisplay(value, "module2");
+});
+NetworkTables.addKeyListener('/SmartDashboard/azimuth3', (key, value) => {
+    updateGyroDisplay(value, "module3");
+});
+NetworkTables.addKeyListener('/SmartDashboard/azimuth4', (key, value) => {
+    updateGyroDisplay(value, "module4");
+});
 
 // The following case is an example, for a robot with an arm at the front.
 NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
@@ -52,10 +100,10 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
 });
 
 // This button is just an example of triggering an event on the robot by clicking a button.
-NetworkTables.addKeyListener('/SmartDashboard/example_variable', (key, value) => {
+NetworkTables.addKeyListener('/SmartDashboard/driveMode', (key, value) => {
     // Set class active if value is true and unset it if it is false
-    ui.example.button.classList.toggle('active', value);
-    ui.example.readout.data = 'Value is ' + value;
+    ui.driveMode.button.classList.toggle('active', value);
+    ui.driveMode.readout.data = 'Value is ' + value;
 });
 
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
@@ -86,17 +134,19 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value)
 });
 
 // The rest of the doc is listeners for UI elements being clicked on
-ui.example.button.onclick = function() {
+ui.driveMode.button.onclick = function() {
     // Set NetworkTables values to the opposite of whether button has active class.
-    NetworkTables.putValue('/SmartDashboard/example_variable', this.className != 'active');
+    NetworkTables.putValue('/SmartDashboard/driveMode', this.className != 'active');
 };
-// Reset gyro value to 0 on click
-ui.gyro.container.onclick = function() {
-    // Store previous gyro val, will now be subtracted from val for callibration
-    ui.gyro.offset = ui.gyro.val;
-    // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
-};
+
+// // Reset gyro value to 0 on click
+// ui.gyro.container.onclick = function() {
+//     // Store previous gyro val, will now be subtracted from val for callibration
+//     ui.gyro.offset = ui.gyro.val;
+//     // Trigger the gyro to recalculate value.
+//     updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
+// };
+
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function() {
     NetworkTables.putValue('/SmartDashboard/autonomous/selected', this.value);

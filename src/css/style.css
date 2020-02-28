@@ -77,12 +77,19 @@ header {
     background-color: #333;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
     background-image: url('http://10.20.90.11:5800');
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center center;
 }
 article {
     top: 0;
     left: 50vw;
     height: 100vh;
     width: 35vw;
+    position: relative;
+}
+article > *{
+    position: absolute;
 }
 svg * {
     stroke: white;
@@ -101,18 +108,50 @@ text {
 #gyro {
     width: 175px;
     height: 175px;
-    margin-left: 30px;
-    margin-top: 15px;
+    left: 0;
+    top: 0;
 }
-#gyro-arm {
+
+.gyro-arm {
     -webkit-transform-origin: bottom;
     -ms-transform-origin: bottom;
     transform-origin: bottom;
 }
-#gyro-number {
+.gyro-number {
     font-size: 25px;
     text-anchor: middle;
 }
+
+.module > * {
+    stroke: #cc8ac1 !important;
+    fill: #222 !important;
+}
+
+#module1 {
+    width: 175px;
+    height: 175px;
+    left: 0;
+    top: 65%;
+}
+#module2 {
+    width: 175px;
+    height: 175px;
+    right: 0;
+    top: 65%;
+}
+#module3 {
+    width: 175px;
+    height: 175px;
+    right: 0;
+    top: 35%;
+}
+#module4 {
+    width: 175px;
+    height: 175px;
+    left: 0;
+    top: 35%;
+}
+
 #robot-diagram {
     position: absolute;
     bottom: 1px;
