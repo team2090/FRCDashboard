@@ -10,38 +10,6 @@ let ui = {
         arm: document.getElementById('gyro').firstChild,
         number: document.getElementById('gyro').lastChild
     },
-    module1 :{
-        container: document.getElementById('module1'),
-        val: 0,
-        offset: 0,
-        visualVal: 0,
-        arm: document.getElementById('module1').firstChild,
-        number: document.getElementById('module1').lastChild
-    },
-    module2 :{
-        container: document.getElementById('module2'),
-        val: 0,
-        offset: 0,
-        visualVal: 0,
-        arm: document.getElementById('module2').firstChild,
-        number: document.getElementById('module2').lastChild
-    },
-    module3 :{
-        container: document.getElementById('module3'),
-        val: 0,
-        offset: 0,
-        visualVal: 0,
-        arm: document.getElementById('module3').firstChild,
-        number: document.getElementById('module3').lastChild
-    },
-    module4 :{
-        container: document.getElementById('module4'),
-        val: 0,
-        offset: 0,
-        visualVal: 0,
-        arm: document.getElementById('module4').firstChild,
-        number: document.getElementById('module4').lastChild
-    },
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
@@ -70,18 +38,6 @@ let updateGyroDisplay = function(value, displayItem) {
 
 NetworkTables.addKeyListener('/SmartDashboard/Gyro', (key, value) => {
     updateGyroDisplay(value, "gyro");
-});
-NetworkTables.addKeyListener('/SmartDashboard/azimuth1', (key, value) => {
-    updateGyroDisplay(value, "module1");
-});
-NetworkTables.addKeyListener('/SmartDashboard/azimuth2', (key, value) => {
-    updateGyroDisplay(value, "module2");
-});
-NetworkTables.addKeyListener('/SmartDashboard/azimuth3', (key, value) => {
-    updateGyroDisplay(value, "module3");
-});
-NetworkTables.addKeyListener('/SmartDashboard/azimuth4', (key, value) => {
-    updateGyroDisplay(value, "module4");
 });
 
 // The following case is an example, for a robot with an arm at the front.
