@@ -61,3 +61,6 @@ dist/
 package-lock.json
 .DS_Store
 .vscode/
+
+# idea project files
+.idea/*
