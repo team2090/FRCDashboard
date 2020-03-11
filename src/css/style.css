@@ -71,7 +71,7 @@ header {
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 50vw;
+    width: 65vw;
     height: 80vh;
     overflow: hidden;
     background-color: #333;
@@ -85,12 +85,12 @@ article {
     top: 0;
     left: 50vw;
     height: 100vh;
-    width: 35vw;
+    width: 20vw;
     position: relative;
 }
 article > *{
     position: absolute;
-}
+}hh
 svg * {
     stroke: white;
     fill: #222;
@@ -111,7 +111,28 @@ text {
     left: 0;
     top: 0;
 }
-
+#shooter {
+    position: absolute;
+    width: 34vw;
+    height: 20vh;
+    top: 24%;
+}
+/*Gauge colour codes:
+#222 (background fill) - inactive
+Red - Motor inactive, not spinning
+Yellow, any value below target range
+Green, ready*/
+#power {
+    position: absolute;
+    width: 25vw;
+    height: 35vh;
+    top: 45%;
+}
+#powerOverride {
+    position: absolute;
+    top: 45%;
+    left: 35%;
+}
 .gyro-arm {
     -webkit-transform-origin: bottom;
     -ms-transform-origin: bottom;

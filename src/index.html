@@ -26,7 +26,21 @@
             <rect class="gyro-arm" x="80" y="5" width="10" height="80"></rect>
             <text class="gyro-number" x="90" y="115">0°</text>
         </svg>
-        
+        <!--Shooter status indicator-->
+        <svg id="shooter">
+            <rect width="100%" height="100%"></rect>
+            <text>RPM</text>
+        </svg>
+        <!--Voltage-->
+        <svg id="power">
+            <rect width="40%" height="40%"></rect>
+        </svg>
+        <!--Power override switch-->
+        <div id="powerOverride">
+            <h1 class="powerButton">Limiter: ON</h1>
+            <button class="powerButton">Toggle Power Limit</button>
+        </div>
+
         <!-- Example robot diagram, arm moves when encoder value changes -->
         <!-- <svg id="robot-diagram" width="332" height="450">
             <text x="40" y="340">Example SVG Robot Diagram</text>
