@@ -46,9 +46,9 @@
         <!-- Autonomous selector -->
         <div class="select-container">
             <select id="auto-select">
-                <option class="left">Auto Left</option>
-                <option class="mid">Auto Mid</option>
-                <option class="right">Auto Right</option>
+                <option class="left" value="left">Auto Left</option>
+                <option class="mid" value="mid">Auto Mid</option>
+                <option class="right" value="right">Auto Right</option>
             </select>
         </div>
         <div id="driveMode-section">
@@ -60,6 +60,7 @@
         <input id="connect-address" type="text" value="localhost" disabled>
         <button id="connect" disabled>Connecting</button>
     </div>
+    <script src="jquery-3.4.1.min.js"></script>
     <script src="networktables/networktables.js"></script>
     <script src="ui.js"></script>
     <script src="connection.js"></script>

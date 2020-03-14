@@ -17,11 +17,26 @@ NetworkTables.addKeyListener('/SmartDashboard/driveMode', (key, value) => {
     ui.driveMode.readout.data = 'Value is ' + value;
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/intake', (key, value) => {
+    // true = arm up
+    if (value) {
+        $("#armUp").css("display", "none");
+        $("#armDown").css("display", "block");
+    } else {
+        $("#armUp").css("display", "block");
+        $("#armDown").css("display", "none");
+    }
+});
+
 NetworkTables.addKeyListener('/SmartDashboard/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
     // We assume here that value is an integer representing the number of seconds left.
     ui.timer.textContent = value < 0 ? '0:00' : Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
 });
+
+NetworkTables.addKeyListener('/SmartDashboard/voltage', (key, value) => {
+    $("#power").children()[2].html(value);
+})
 
 // The rest of the doc is listeners for UI elements being clicked on
 ui.driveMode.button.onclick = function() {
